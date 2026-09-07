@@ -88,7 +88,7 @@ exports.verifyOTP = async(req, res) =>{
     await OTP.deleteMany({email, otp, action: 'account_verification'}); //Remove used OTPs
 
     res.json({
-        message: 'Account verified Successfu;ly. You can now log in.',
+        message: 'Account verified Successfully. You can now log in.',
         id: user._id,
         name: user.name,
         email: user.email,
