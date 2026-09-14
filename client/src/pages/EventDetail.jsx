@@ -64,9 +64,9 @@ const EventDetail = () => {
     const isSoldOut = event.availableSeats <= 0;
 
     return (
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden mt-8">
-            {event.image ? (
-                <img src={event.image} alt={event.title} className="w-full h-80 object-cover" />
+        <div className="max-w-4xl mx-auto bg-[#1b0d31] text-white rounded-2xl shadow-xl overflow-hidden mt-24 mb-12 border border-[#7700a0]">
+            {(event.imageUrl || event.image) ? (
+                <img src={event.imageUrl || event.image} alt={event.title} className="w-full h-80 object-cover" />
             ) : (
                 <div className="w-full h-64 bg-gray-900 flex items-center justify-center text-white/50 text-6xl font-black uppercase tracking-widest">
                     {event.category}
@@ -76,15 +76,15 @@ const EventDetail = () => {
             <div className="p-8 md:p-12">
                 <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-6">
                     <div>
-                        <div className="inline-block bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-3">
+                        <div className="inline-block bg-[#4c0087] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-3">
                             {event.category}
                         </div>
-                        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{event.title}</h1>
-                        <p className="text-gray-600 text-lg leading-relaxed mb-6">{event.description}</p>
+                        <h1 className="text-4xl font-extrabold text-white mb-4">{event.title}</h1>
+                        <p className="text-[#c9bdd8] text-lg leading-relaxed mb-6">{event.description}</p>
                     </div>
 
-                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-[300px] w-full md:w-auto shrink-0 shadow-sm">
-                        <h3 className="text-xl font-bold text-gray-800 mb-6">Booking Details</h3>
+                    <div className="bg-[#110926] p-6 rounded-xl border border-[#7700a0] min-w-[300px] w-full md:w-auto shrink-0 shadow-sm">
+                        <h3 className="text-xl font-bold text-white mb-6">Booking Details</h3>
 
                         <div className="space-y-4 mb-8">
                             <div className="flex items-center gap-4 text-gray-600">

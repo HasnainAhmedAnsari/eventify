@@ -13,9 +13,9 @@ import PaymentFailed from './pages/PaymentFailed';
 function App() {
     return (
         <Router>
-            <div className="min-h-screen bg-gray-50 flex flex-col">
+            <div className="min-h-screen flex flex-col">
                 <Navbar />
-                <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/events/:id" element={<EventDetail />} />

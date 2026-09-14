@@ -1,41 +1,18 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    const close = () => setOpen(false);
+    const handleLogout = () => { logout(); close(); navigate('/login'); };
+    const homeLink = location.pathname === '/' ? '#events' : '/';
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
-
-    return (
-        <nav className="bg-gray-900 shadow-lg">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
-                    <Link to="/" >
-                        <img src="/logo-white.svg" alt="Eventora Logo" className="h-12" />
-                    </Link>
-                    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                        <Link to="/" className="text-gray-200 hover:text-white transition cursor-pointer">Events</Link>
-                        {user ? (
-                            <>
-                                <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} className="text-gray-200 hover:text-white transition">Dashboard</Link>
-                                <button onClick={handleLogout} className="bg-gray-700 hover:bg-black text-white px-4 py-2 rounded-md transition">Logout</button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/login" className="text-gray-200 hover:text-white transition">Login</Link>
-                                <Link to="/register" className="bg-white text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md font-semibold transition">Sign Up</Link>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </nav>
-    );
+    return <><nav className="site-nav"><Link to="/" className="brand" onClick={close}><img src="/logo-white.svg" alt="Eventify" /></Link><button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <FaTimes /> : <FaBars />}</button><div className={`nav-links ${open ? 'is-open' : ''}`}><a href={homeLink} onClick={close}>Events</a>{user ? <><Link to={user.role === 'admin' ? '/admin' : '/dashboard'} onClick={close}>Dashboard</Link><button onClick={handleLogout}>Logout</button></> : <><Link to="/login" onClick={close}>Login</Link><Link to="/register" className="nav-cta" onClick={close}>Signup</Link></>}</div></nav>{open && <button className="drawer-backdrop" onClick={close} aria-label="Close menu" />}</>;
 };
 
 export default Navbar;

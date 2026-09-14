@@ -1,16 +1,19 @@
-const event = require('../models/Event');
+const Event = require('../models/Event');
 
 exports.getAllEvents = async (req, res) => {
     try {
-        filters = {};
+        const filters = {};
         if(req.query.category){
             filters.category = req.query.category;
         }
         if(req.query.ticketPrice){
             filters.ticketPrice = req.query.ticketPrice;
         }
+        if (req.query.search) {
+            filters.title = { $regex: req.query.search, $options: 'i' };
+        }
 
-        const events = await event.find(filters);
+        const events = await Event.find(filters).sort({ date: 1 });
         res.status(200).json(events);
     }
     catch (error) {
@@ -20,7 +23,7 @@ exports.getAllEvents = async (req, res) => {
 
 exports.getEventById = async (req, res) => {
     try {
-        const event = await event.findById(req.params.id);
+        const event = await Event.findById(req.params.id);
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
@@ -43,7 +46,7 @@ exports.createEvent = async (req, res) => {
             totalSeats,
             availableSeats,
             ticketPrice,
-            imageUrl,
+            imageUrl: imageUrl || req.body.image,
             createdBy
         });
         res.status(201).json(newEvent);
@@ -65,7 +68,7 @@ exports.updateEvent = async (req, res) => {
             totalSeats,
             availableSeats,
             ticketPrice,
-            imageUrl,
+            imageUrl: imageUrl || req.body.image,
         }, { new: true });
         if (!updatedEvent) {
             return res.status(404).json({ message: 'Event not found' });
