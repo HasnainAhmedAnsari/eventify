@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 import { AuthContext } from '../context/AuthContext';
 import { FaCalendarAlt, FaMapMarkerAlt, FaChair, FaMoneyBillWave } from 'react-icons/fa';
+import Footer from "../components/Footer";
+
 
 const EventDetail = () => {
     const { id } = useParams();
@@ -64,6 +66,7 @@ const EventDetail = () => {
     const isSoldOut = event.availableSeats <= 0;
 
     return (
+        <>
         <div className="max-w-4xl mx-auto bg-[#1b0d31] text-white rounded-2xl shadow-xl overflow-hidden mt-24 mb-12 border border-[#7700a0]">
             {(event.imageUrl || event.image) ? (
                 <img src={event.imageUrl || event.image} alt={event.title} className="w-full h-80 object-cover" />
@@ -161,6 +164,10 @@ const EventDetail = () => {
                 </div>
             </div>
         </div>
+        
+        <Footer/>
+        </>
+        
     );
 };
 
