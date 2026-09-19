@@ -1,8 +1,16 @@
 import { FaArrowRight, FaSearch } from "react-icons/fa";
 
 const Hero = ({ search, setSearch }) => (
-  <section className="relative grid min-h-[75vh] place-items-center overflow-hidden bg-[linear-gradient(180deg,rgba(17,9,38,.2),#110926),url('/home-bg.jpg')] bg-cover bg-center text-center after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(17,9,38,.18),rgba(17,9,38,.82))] md:min-h-[100vh]">
-    <div className="relative z-[1] max-w-[100vw] px-5 py-[136px]">
+  <section className="relative 
+  grid min-h-[75vh] 
+  place-items-center 
+  overflow-hidden 
+  bg-[linear-gradient(180deg,#110926ad,#1109263c),url('/home-bg.jpg')] 
+  bg-cover
+  bg-fixed bg-center text-center 
+  md:min-h-[100vh]">
+    <div className="relative z-[1] max-w-[100vw] px-5 py-[136px]"
+    >
       <span className="inline-block rounded-[30px] border border-[#d200d8] bg-[linear-gradient(90deg,#D200D850,#4C008750)] px-5 py-1.5 text-4 font-semibold max-[700px]:px-3 max-[700px]:py-1 max-[700px]:text-3">
         Welcome to Eventify
       </span>
@@ -14,7 +22,9 @@ const Hero = ({ search, setSearch }) => (
         experience
       </h1>
       <p className="mx-auto mb-9 max-w-[90%] text-[12px] leading-[1.6] text-white sm:max-w-[50%] md:text-[18px]">
-        Discover the best tech conferences, late-night music festivals, and hands-on workshops happening directly in your area. Secure your spot today.
+        Discover the best tech conferences, late-night music festivals, and
+        hands-on workshops happening directly in your area. Secure your spot
+        today.
       </p>
       <label className="mx-auto flex max-w-[90%] items-center gap-2 rounded-full border-2 border-[#d200d8] bg-white px-4 py-2 text-[#d200d8] sm:max-w-[50%] md:px-8 md:py-4">
         <FaSearch aria-hidden="true" className="text-[18px] md:text-[24px]" />
@@ -30,6 +40,22 @@ const Hero = ({ search, setSearch }) => (
         </span>
       </label>
     </div>
+
+    <div
+    className="pointer-events-none absolute
+    -bottom-[20rem]
+    sm:-bottom-[30rem]
+    left-1/2
+    z-[1]
+    h-[400px]
+    w-[120vw]
+    sm:h-[600px]
+    sm:w-[120vw]
+    -translate-x-1/2
+    rounded-[50%]
+    bg-[#110926]
+    "
+    />
   </section>
 );
 
