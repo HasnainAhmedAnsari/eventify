@@ -32,7 +32,7 @@ const Home = () => {
       <Hero search={search} setSearch={setSearch} />
       <Events events={events} loading={loading} />
       <WhyChooseUs />
-      <Footer />
+      <Footer/>
     </div>
   );
 };

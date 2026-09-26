@@ -11,7 +11,9 @@ const Hero = ({ search, setSearch }) => (
   md:min-h-[100vh]">
     <div className="relative z-[1] max-w-[100vw] px-5 py-[136px]"
     >
-      <span className="inline-block rounded-[30px] border border-[#d200d8] bg-[linear-gradient(90deg,#D200D850,#4C008750)] px-5 py-1.5 text-4 font-semibold max-[700px]:px-3 max-[700px]:py-1 max-[700px]:text-3">
+      <span className="inline-block rounded-[30px] border border-[#d200d8] 
+      bg-[linear-gradient(90deg,#D200D850,#4C008750)] px-5 py-1.5 text-4 font-semibold
+      max-[700px]:px-3 max-[700px]:py-1 max-[700px]:text-3">
         Welcome to Eventify
       </span>
       <h1 className="my-9 text-[clamp(36px,5vw,72px)] font-extrabold uppercase leading-[1] md:leading-[0.8] max-[700px]:my-6">
