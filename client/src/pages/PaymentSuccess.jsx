@@ -4,21 +4,68 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 const PaymentSuccess = () => {
     return (
-        <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-            <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-green-500 transform transition-all hover:-translate-y-1">
-                <FaCheckCircle className="text-green-500 text-7xl mx-auto mb-6 drop-shadow-sm" />
-                <h1 className="text-4xl font-black text-gray-900 mb-4">Booking Confirmed!</h1>
-                <p className="text-gray-500 mb-8 text-lg">Your ticket has been booked successfully. A confirmation email has been sent to your registered email address.</p>
-                <div className="space-y-4">
-                    <Link to="/dashboard" className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl transition shadow-lg hover:shadow-xl">
+        <section
+        className="relative 
+  grid min-h-[100vh] 
+  place-items-center 
+  overflow-hidden 
+  bg-[linear-gradient(180deg,#110926,#11092690),url('/home-bg.jpg')] 
+  bg-cover
+  bg-fixed bg-center text-center 
+  md:min-h-[100vh]
+  p-4
+  "
+        >
+            <div className="
+            bg-[linear-gradient(180deg,#ffffff20,#ffffff05)]
+            backdrop-blur-[12px]
+            border-[2px]
+            border-[#D200D820]
+            p-6 
+            md:p-10 
+            rounded-2xl 
+            md:rounded-3xl 
+            shadow-xl 
+            md:shadow-2xl 
+            max-w-md 
+            w-full 
+            text-center 
+            border-t-8 
+            border-t-[#D200D8]
+            transform 
+            transition-all 
+            hover:-translate-y-1
+            ">
+                <FaCheckCircle className="text-[#D200D8] text-7xl mx-auto mb-6 drop-shadow-sm" />
+                <h1 className="
+                text-[28px]
+                        md:text-[36px]
+                        font-bold
+                        text-[#D200D8]
+                        mb-2
+                        md:mb-4
+                        leading-[1.2]
+                ">Booking Confirmed!</h1>
+                <p className="
+                text-[14px]
+                    md:text-[16px]
+                    text-white
+                    mb-6
+                    md:mb-8
+                ">Your ticket has been booked successfully. A confirmation email has been sent to your registered email address.</p>
+                <div className="space-y-2 md:space-y-4">
+                    <Link to="/dashboard" className="block w-full bg-[#D200D8] hover:bg-gradient-to-r 
+                    hover:from-[#d200d8]
+                    hover:to-[#4c0087] 
+                    text-[14px] md:text-[18px] text-white font-semibold py-4 px-6 rounded-xl transition shadow-lg hover:shadow-xl">
                         View My Tickets
                     </Link>
-                    <Link to="/" className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-xl transition">
+                    <Link to="/" className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-[14px] md:text-[18px] font-semibold py-4 px-6 rounded-xl transition">
                         Discover More Events
                     </Link>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
