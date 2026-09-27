@@ -12,7 +12,7 @@ const generateToken = (id, role) => {
 exports.registerUser = async(req, res) =>{
     const {name, email, password} = req.body;
 
-    let userExists = await User.findone({email});
+    let userExists = await User.findOne({email});
     if(userExists){
         return res.status(400).json({error: 'User already exists'});
     }
@@ -42,7 +42,7 @@ exports.registerUser = async(req, res) =>{
 exports.loginUser = async(req, res) =>{
     const {email, password} = req.body;
 
-    let user = await User.findone({email});
+    let user = await User.findOne({email});
     if(!user){
         return res.status(400).json({error: 'User does not exist please Sign up first'});
     }
