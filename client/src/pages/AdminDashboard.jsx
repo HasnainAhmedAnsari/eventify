@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../utils/axios';
 import { useNavigate } from 'react-router-dom';
+import { PiMoneyLight, PiUserCircleGearLight, PiClockCountdown } from "react-icons/pi";
+
 
 const AdminDashboard = () => {
     const { user } = useContext(AuthContext);
@@ -84,52 +86,150 @@ const AdminDashboard = () => {
     if (loading) return <div className="text-center py-20 text-xl font-semibold">Loading admin panel...</div>;
 
     return (
-        <div className="max-w-7xl mx-auto">
-            <div className="bg-black text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-lg flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+        <section className="
+        md:min-h-[100vh]
+        p-4
+        mt-24
+        md:mt-36
+        max-w-7xl mx-auto
+        "
+        >
+            <div className="
+            bg-[linear-gradient(180deg,#D200D8,#4C0087)] 
+            text-white 
+            rounded-2xl 
+            p-6 
+            sm:p-8 
+            mb-6 
+            md:mb-8 
+            shadow-lg 
+            flex 
+            flex-col 
+            md:flex-row 
+            justify-between 
+            items-center 
+            gap-6 
+            text-center 
+            md:text-left
+            ">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold mb-2">Admin Dashboard</h1>
-                    <p className="text-gray-300">Manage events and manually confirm bookings.</p>
+                    <h1 className="
+                    text-[28px]
+                        md:text-[36px]
+                        font-bold
+                        text-white
+                        mb-2
+                        md:mb-4
+                        leading-[1.2]
+                    ">
+                        Admin Dashboard</h1>
+                    <p className="
+                    text-[14px]
+                    md:text-[16px]
+                    text-white
+                    ">Manage events and manually confirm bookings.</p>
                 </div>
                 <button
                     onClick={() => setShowEventForm(!showEventForm)}
-                    className="w-full md:w-auto bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition shadow-md"
+                    className="
+                    w-full
+                    md:w-auto bg-white
+                    text-black font-bold
+                    py-3 px-6 rounded-lg
+                    hover:bg-gray-100 transition
+                    shadow-md
+                    cursor-pointer
+                    "
                 >
                     {showEventForm ? 'Cancel Creation' : '+ Create New Event'}
                 </button>
             </div>
 
             {/* Admin Stats Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+                <div className="bg-white
+                p-6
+                rounded-2xl
+                shadow-sm
+                border
+                border-white
+                flex
+                items-center
+                justify-between
+                ">
                     <div>
-                        <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-1">Total Revenue</p>
-                        <h3 className="text-3xl font-black text-green-600">₹{bookings.reduce((sum, b) => b.paymentStatus === 'paid' && b.status === 'confirmed' ? sum + b.amount : sum, 0)}</h3>
+                        <p className="text-gray-500
+                        text-[14px]
+                    md:text-[16px]
+                    font-bold uppercase tracking-wider mb-1">Total Revenue</p>
+                        <h3 className="
+                        text-[24px]
+                    md:text-[36px] 
+                    font-bold text-[#110926]">{bookings.reduce((sum, b) => b.paymentStatus === 'paid' && b.status === 'confirmed' ? sum + b.amount : sum, 0)}/-</h3>
                     </div>
-                    <div className="w-12 h-12 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-xl font-bold">₹</div>
+                    <div className="w-16 h-16 bg-[#d200d820] text-[#d200d8] rounded-full flex items-center justify-center text-3xl font-bold"><PiMoneyLight/></div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                <div className="bg-white
+                p-6
+                rounded-2xl
+                shadow-sm
+                border
+                border-white
+                flex
+                items-center
+                justify-between">
                     <div>
-                        <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-1">Paid Clients</p>
-                        <h3 className="text-3xl font-black text-blue-600">{new Set(bookings.filter(b => b.paymentStatus === 'paid' && b.status === 'confirmed').map(b => b.userId?._id)).size}</h3>
+                        <p className="text-gray-500 text-[14px]
+                    md:text-[16px] font-bold uppercase tracking-wider mb-1">Paid Clients</p>
+                        <h3 className="text-[24px]
+                    md:text-[36px] 
+                    font-bold text-[#110926]">{new Set(bookings.filter(b => b.paymentStatus === 'paid' && b.status === 'confirmed').map(b => b.userId?._id)).size}</h3>
                     </div>
-                    <div className="w-12 h-12 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center text-xl font-bold">👤</div>
+                    <div className="w-16 h-16 bg-[#d200d820] text-[#d200d8] rounded-full flex items-center justify-center text-3xl font-bold"><PiUserCircleGearLight /></div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                <div className="bg-white
+                p-6
+                rounded-2xl
+                shadow-sm
+                border
+                border-white
+                flex
+                items-center
+                justify-between">
                     <div>
-                        <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-1">Pending Requests</p>
-                        <h3 className="text-3xl font-black text-yellow-600">{bookings.filter(b => b.status === 'pending').length}</h3>
+                        <p className="text-gray-500 text-[14px]
+                    md:text-[16px] font-bold uppercase tracking-wider mb-1">Pending Requests</p>
+                        <h3 className="text-[24px]
+                    md:text-[36px] 
+                    font-bold text-[#110926]">{bookings.filter(b => b.status === 'pending').length}</h3>
                     </div>
-                    <div className="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl font-bold">⏳</div>
+                    <div className="w-16 h-16 bg-[#d200d820] text-[#d200d8] rounded-full flex items-center justify-center text-3xl font-bold"><PiClockCountdown /></div>
                 </div>
             </div>
 
             {showEventForm && (
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8 animation-slideDown">
-                    <h2 className="text-2xl font-bold mb-6 text-gray-800">Create New Event</h2>
+                <div className="
+                bg-[linear-gradient(180deg,#ffffff20,#ffffff05)]
+            backdrop-blur-[12px]
+            border-[2px]
+            border-[#D200D820]
+            p-8
+            rounded-2xl
+            shadow-sm
+            mb-8
+            animation-slideDown">
+                    <h2 className="text-[24px]
+                        md:text-[32px]
+                        font-bold
+                        text-[#D200D8]
+                        mb-4
+                        md:mb-6
+                        leading-[1.2]
+                        ">Create New Event</h2>
                     <form onSubmit={handleCreateEvent} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <input required type="text" placeholder="Event Title" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} />
                         <input required type="text" placeholder="Category (e.g., Tech, Music)" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} />
-                        <input required type="date" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
+                        <input required type="date" className="border px-4 py-3 rounded-lg text-white [&::-webkit-calendar-picker-indicator]:invert focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
                         <input required type="text" placeholder="Location" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} />
                         <input required type="number" placeholder="Total Seats" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.totalSeats} onChange={e => setFormData({ ...formData, totalSeats: e.target.value })} />
                         <input required type="number" placeholder="Ticket Price (0 for free)" className="border px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.ticketPrice} onChange={e => setFormData({ ...formData, ticketPrice: e.target.value })} />
@@ -139,16 +239,38 @@ const AdminDashboard = () => {
                         </div>
 
                         <textarea required placeholder="Event Description" className="border px-4 py-3 rounded-lg md:col-span-2 h-32 focus:ring-2 focus:ring-gray-700 outline-none transition" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} />
-                        <button type="submit" className="md:col-span-2 bg-gray-900 text-white font-bold py-3 mt-2 rounded-lg hover:bg-black transition shadow-md">Publish Event</button>
+                        <button type="submit" className="
+                        md:col-span-2 
+                    rounded-[8px]
+                    bg-[#d200d8]
+                    px-2 py-4
+                    text-[16px]
+                    font-semibold
+                    text-white 
+                    hover:bg-gradient-to-r 
+                    hover:from-[#d200d8]
+                    hover:to-[#4c0087] 
+                    max-[700px]:px-4 
+                    max-[700px]:text-[14px]
+                    cursor-pointer
+                    transition
+                        ">
+                            Publish Event</button>
                     </form>
                 </div>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                 {/* Events Section */}
                 <div className="flex flex-col">
-                    <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-3">
-                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-600 text-sm">{events.length}</span>
+                    <h2 className="text-[20px]
+                        md:text-[24px]
+                        font-bold
+                        text-[#D200D8]
+                        mb-4
+                        md:mb-6
+                        leading-[1.2] flex items-center gap-3">
+                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#D200D820] border border-[#D200D8] text-white text-sm">{events.length}</span>
                         All Events
                     </h2>
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -175,8 +297,14 @@ const AdminDashboard = () => {
 
                 {/* Bookings Section */}
                 <div className="flex flex-col">
-                    <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-3">
-                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-100 text-yellow-700 text-sm font-bold">{bookings.length}</span>
+                    <h2 className="text-[20px]
+                        md:text-[24px]
+                        font-bold
+                        text-[#D200D8]
+                        mb-4
+                        md:mb-6
+                        leading-[1.2] flex items-center gap-3">
+                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#D200D820] border border-[#D200D8] text-white text-sm font-bold">{bookings.length}</span>
                         Booking Requests
                     </h2>
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -234,7 +362,7 @@ const AdminDashboard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
