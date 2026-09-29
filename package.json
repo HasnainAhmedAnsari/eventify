@@ -1,0 +1,22 @@
+{
+  "name": "eventify",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "concurrently -k -n client,server -c cyan,green \"npm run dev --workspace=eventify-client -- --host 0.0.0.0\" \"npm run dev --workspace=eventify-server\"",
+    "dev:client": "npm run dev --workspace=eventify-client -- --host 0.0.0.0",
+    "dev:server": "npm run dev --workspace=eventify-server",
+    "build": "npm run build --workspace=eventify-client",
+    "start": "npm run start --workspace=eventify-server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
