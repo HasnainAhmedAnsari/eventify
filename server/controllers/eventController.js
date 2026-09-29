@@ -35,19 +35,26 @@ exports.getEventById = async (req, res) => {
 };
 
 exports.createEvent = async (req, res) => {
-    const { title, description, date, location, category, totalSeats, availableSeats, ticketPrice, imageUrl, createdBy } = req.body;
+    const { title, description, date, location, category, totalSeats, ticketPrice, imageUrl } = req.body;
     try {
+        const seatCount = Number(totalSeats);
+        const price = Number(ticketPrice);
+        const eventDate = new Date(date);
+        if (!Number.isFinite(seatCount) || seatCount < 1 || !Number.isFinite(price) || price < 0 || Number.isNaN(eventDate.getTime())) {
+            return res.status(400).json({ message: 'Enter a valid date, a positive seat count, and a non-negative ticket price' });
+        }
+
         const newEvent = await Event.create({
             title,
             description,
-            date,
+            date: eventDate,
             location,
             category,
-            totalSeats,
-            availableSeats,
-            ticketPrice,
+            totalSeats: seatCount,
+            availableSeats: seatCount,
+            ticketPrice: price,
             imageUrl: imageUrl || req.body.image,
-            createdBy
+            createdBy: req.user._id
         });
         res.status(201).json(newEvent);
     }

@@ -35,7 +35,7 @@ const eventSchema = new mongoose.Schema({
     },
     imageUrl: {
         type: String,
-        required: true
+        required: false
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

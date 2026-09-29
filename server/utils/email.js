@@ -17,7 +17,7 @@ exports.sendBookingEmail = async(userEmail, userName, eventTitle) =>{
         to: userEmail,
         subject: 'Booking Confirmed: ' + eventTitle,
         html: `
-                <h2>Hi ${eventTitle}!</h2>
+                <h2>Hi ${userName}!</h2>
                 <p>Your booking for the event <strong>${eventTitle}</strong> is successfully confirmed</p>
                 <p>Thank you for choosing Eventify</p>
         `,

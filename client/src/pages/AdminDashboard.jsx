@@ -29,7 +29,7 @@ const AdminDashboard = () => {
         try {
             const [eventsRes, bookingsRes] = await Promise.all([
                 api.get('/events'),
-                api.get('/bookings/my') // Admin gets all bookings
+                api.get('/bookings/all')
             ]);
             setEvents(eventsRes.data);
             setBookings(bookingsRes.data);
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
     const handleCancelBooking = async (id) => {
         if (window.confirm('Cancel this user\'s booking request?')) {
             try {
-                await api.delete(`/bookings/${id}`);
+                await api.patch(`/bookings/${id}/cancel`);
                 fetchData();
             } catch (error) {
                 alert(error.response?.data?.message || 'Error cancelling booking');
@@ -331,7 +331,7 @@ const AdminDashboard = () => {
                                             </p>
                                             <p className="text-gray-700 flex items-center gap-2 mb-1">
                                                 <span className="font-bold w-16 text-gray-500 uppercase text-xs">Date:</span>
-                                                <span>{new Date(booking.bookedAt).toLocaleString()}</span>
+                                                <span>{new Date(booking.createdAt).toLocaleString()}</span>
                                             </p>
                                             {booking.eventId && (
                                                 <p className="text-gray-700 flex items-center gap-2 mt-2 pt-2 border-t border-gray-200">
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                                                 <button onClick={() => handleConfirmBooking(booking._id, 'paid')} className="flex-1 min-w-[120px] bg-green-50 text-green-700 hover:bg-green-600 hover:text-white border border-green-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
                                                     ✓ Approve as Paid
                                                 </button>
-                                                <button onClick={() => handleConfirmBooking(booking._id, 'not_paid')} className="flex-1 min-w-[120px] bg-gray-50 text-gray-700 hover:bg-gray-800 hover:text-white border border-gray-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
+                                                <button onClick={() => handleConfirmBooking(booking._id, 'unpaid')} className="flex-1 min-w-[120px] bg-gray-50 text-gray-700 hover:bg-gray-800 hover:text-white border border-gray-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
                                                     ✓ Approve Undecided
                                                 </button>
                                                 <button onClick={() => handleCancelBooking(booking._id)} className="w-[80px] bg-red-50 text-red-600 hover:bg-red-500 hover:text-white border border-red-200 text-xs font-bold py-2.5 px-3 rounded-lg transition">
