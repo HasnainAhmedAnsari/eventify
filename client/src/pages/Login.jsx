@@ -83,7 +83,7 @@ const Login = () => {
                     md:text-[16px]
                     text-white
                 ">
-                    Sign in to your Eventora account</p>
+                    Sign in to your Eventify account</p>
             </div>
 
             {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-center shadow-inner border border-red-100">{error}</div>}

@@ -53,10 +53,10 @@ const PaymentFailed = () => {
                     md:mb-8
                 ">We couldn't process your payment. Please ensure your payment details are correct and try again.</p>
                 <div className="space-y-2 md:space-y-4">
-                    <Link to="/" className="block w-full bg-red-500 hover:bg-red-600 text-white text-[14px] md:text-[18px] font-semibold py-4 px-6 rounded-xl transition shadow-lg hover:shadow-xl">
+                    <Link to="/" className="block w-full rounded-[8px] bg-[#d200d8] px-6 py-4 text-[14px] font-semibold text-white shadow-lg transition hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087] hover:shadow-xl md:text-[18px]">
                         Return to Events
                     </Link>
-                    <Link to="/dashboard" className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-[14px] md:text-[18px] font-semibold py-4 px-6 rounded-xl transition">
+                    <Link to="/dashboard" className="block w-full rounded-[8px] bg-[#d200d8] px-6 py-4 text-[14px] font-semibold text-white transition hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087] md:text-[18px]">
                         Go to Dashboard
                     </Link>
                 </div>

@@ -60,7 +60,7 @@ const PaymentSuccess = () => {
                     text-[14px] md:text-[18px] text-white font-semibold py-4 px-6 rounded-xl transition shadow-lg hover:shadow-xl">
                         View My Tickets
                     </Link>
-                    <Link to="/" className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-[14px] md:text-[18px] font-semibold py-4 px-6 rounded-xl transition">
+                    <Link to="/" className="block w-full rounded-[8px] bg-[#d200d8] px-6 py-4 text-[14px] font-semibold text-white transition hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087] md:text-[18px]">
                         Discover More Events
                     </Link>
                 </div>

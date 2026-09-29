@@ -75,7 +75,7 @@ const Register = () => {
                 <p className="text-[14px]
                     md:text-[16px]
                     text-white
-                    ">Join Eventora today</p>
+                    ">Join Eventify today</p>
             </div>
 
             {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-center shadow-inner border border-red-100">{error}</div>}

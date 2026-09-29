@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Footer = () => (
-  <footer className="mx-auto grid max-w-[75vw]
+const Footer = () => {
+  const { pathname, hash } = useLocation();
+  const linkClass = (active) => `border-b-2 pb-1 ${active ? "border-[#d200d8] text-[#d200d8]" : "border-transparent hover:text-[#d200d8]"}`;
+
+  return (
+    <footer className="mx-auto grid max-w-[75vw]
   grid-cols-[1fr_auto]
   gap-x-20
   gap-y-5
@@ -30,10 +34,10 @@ const Footer = () => (
     max-[700px]:justify-between 
     max-[700px]:gap-2.5 
     max-[700px]:text-[12px]">
-      <Link to="/" className="hover:text-[#d200d8]">Home</Link>
-      <a href="#events" className="hover:text-[#d200d8]">Events</a>
-      <Link to="/login" className="hover:text-[#d200d8]">Login</Link>
-      <Link to="/register" className="hover:text-[#d200d8]">Signup</Link>
+      <Link to="/" className={linkClass(pathname === "/" && hash !== "#events")}>Home</Link>
+      <Link to="/#events" className={linkClass(pathname === "/" && hash === "#events")}>Events</Link>
+      <Link to="/login" className={linkClass(pathname === "/login")}>Login</Link>
+      <Link to="/register" className={linkClass(pathname === "/register")}>Signup</Link>
     </nav>
     <div className="col-span-full
     border-t-[2px]
@@ -45,7 +49,8 @@ const Footer = () => (
     max-[700px]:block 
     max-[700px]:pt-[15px] 
     max-[700px]:text-[10px]">© All rights reserved to Eventify since 2026.</div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

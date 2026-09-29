@@ -133,10 +133,10 @@ const AdminDashboard = () => {
                     onClick={() => setShowEventForm(!showEventForm)}
                     className="
                     w-full
-                    md:w-auto bg-white
-                    text-black font-bold
+                    md:w-auto bg-[#d200d8]
+                    text-white font-bold
                     py-3 px-6 rounded-lg
-                    hover:bg-gray-100 transition
+                    hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087] transition
                     shadow-md
                     cursor-pointer
                     "
@@ -327,7 +327,7 @@ const AdminDashboard = () => {
                                             </p>
                                             <p className="text-gray-700 flex items-center gap-2 mb-1">
                                                 <span className="font-bold w-16 text-gray-500 uppercase text-xs">Amount:</span>
-                                                <span className={`font-semibold ${booking.amount === 0 ? 'text-green-600' : ''}`}>{booking.amount === 0 ? 'Free' : `₹${booking.amount}`}</span>
+                                                <span className={`font-semibold ${booking.amount === 0 ? 'text-green-600' : ''}`}>{booking.amount === 0 ? 'Free' : `${booking.amount}/-`}</span>
                                             </p>
                                             <p className="text-gray-700 flex items-center gap-2 mb-1">
                                                 <span className="font-bold w-16 text-gray-500 uppercase text-xs">Date:</span>
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                                                 <button onClick={() => handleConfirmBooking(booking._id, 'paid')} className="flex-1 min-w-[120px] bg-green-50 text-green-700 hover:bg-green-600 hover:text-white border border-green-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
                                                     ✓ Approve as Paid
                                                 </button>
-                                                <button onClick={() => handleConfirmBooking(booking._id, 'unpaid')} className="flex-1 min-w-[120px] bg-gray-50 text-gray-700 hover:bg-gray-800 hover:text-white border border-gray-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
+                                                <button onClick={() => handleConfirmBooking(booking._id, 'unpaid')} className="flex-1 min-w-[120px] rounded-[8px] bg-[#d200d8] px-3 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087]">
                                                     ✓ Approve Undecided
                                                 </button>
                                                 <button onClick={() => handleCancelBooking(booking._id)} className="w-[80px] bg-red-50 text-red-600 hover:bg-red-500 hover:text-white border border-red-200 text-xs font-bold py-2.5 px-3 rounded-lg transition">

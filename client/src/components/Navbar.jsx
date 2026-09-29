@@ -1,7 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
+
+const navLinkClass = (active) =>
+  `border-b-2 pb-1 ${active ? "border-[#d200d8] text-[#d200d8]" : "border-transparent text-white hover:text-[#d200d8]"}`;
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -14,7 +17,17 @@ const Navbar = () => {
     close();
     navigate("/login");
   };
-  const homeLink = location.pathname === "/" ? "#events" : "/";
+  const isHomeActive = location.pathname === "/" && location.hash !== "#events";
+  const isEventsActive = location.pathname === "/" && location.hash === "#events";
+  const isDashboardActive = location.pathname === (user?.role === "admin" ? "/admin" : "/dashboard");
+
+  useEffect(() => {
+    if (location.hash) {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    } else if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <>
@@ -49,29 +62,29 @@ const Navbar = () => {
           {open ? <FaTimes /> : <FaBars />}
         </button>
         <div className={`${open ? "flex" : "hidden"} fixed right-[-12px] top-[58px] z-20 w-[210px] flex-col items-stretch gap-[18px] rounded-xl border border-[#70008d] bg-[#1a0c2e] p-[22px] text-sm shadow-[0_15px_35px_#0008] min-[701px]:static min-[701px]:z-auto min-[701px]:flex min-[701px]:w-auto min-[701px]:flex-row min-[701px]:items-center min-[701px]:gap-8 min-[701px]:border-0 min-[701px]:bg-transparent min-[701px]:p-0 min-[701px]:shadow-none`}>
-          <a className="text-white hover:text-[#d200d8]" href={homeLink} onClick={close}>
+          <Link className={navLinkClass(isHomeActive)} to="/" onClick={close}>
             Home
-          </a>
-          <a className="text-white hover:text-[#d200d8]" href={homeLink} onClick={close}>
+          </Link>
+          <Link className={navLinkClass(isEventsActive)} to="/#events" onClick={close}>
             Events
-          </a>
+          </Link>
           {user ? (
             <>
               <Link
                 to={user.role === "admin" ? "/admin" : "/dashboard"}
-                className="text-white hover:text-[#d200d8]"
+                className={navLinkClass(isDashboardActive)}
                 onClick={close}
               >
                 Dashboard
               </Link>
-              <button className="border-0 bg-transparent text-left text-inherit text-white hover:text-[#d200d8]" onClick={handleLogout}>Logout</button>
+              <button className="border-0 border-b-2 border-transparent bg-transparent pb-1 text-left text-inherit text-white hover:text-[#d200d8]" onClick={handleLogout}>Logout</button>
             </>
           ) : (
             <>
-              <Link className="text-white hover:text-[#d200d8]" to="/login" onClick={close}>
+              <Link className={navLinkClass(location.pathname === "/login")} to="/login" onClick={close}>
                 Login
               </Link>
-              <Link to="/register" className="rounded-lg bg-[#d200d8] hover:bg-gradient-to-r text-center hover:from-[#d200d8] hover:to-[#4c0087] px-[23px] py-2 font-semibold text-white" onClick={close}>
+              <Link to="/register" className={`rounded-lg bg-[#d200d8] px-[23px] py-2 text-center font-semibold text-white hover:bg-gradient-to-r hover:from-[#d200d8] hover:to-[#4c0087] ${location.pathname === "/register" ? "underline decoration-[#d200d8] underline-offset-4" : ""}`} onClick={close}>
                 Signup
               </Link>
             </>
