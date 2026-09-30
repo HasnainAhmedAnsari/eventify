@@ -10,11 +10,13 @@ const bookingRoutes = require('./routes/booking');
 
 dotenv.config({ path: path.join(__dirname, '.env') });
 
-const dnsServers = (process.env.DNS_SERVERS || '1.1.1.1,8.8.8.8')
+const dnsServers = (process.env.DNS_SERVERS || '')
     .split(',')
     .map(server => server.trim())
     .filter(Boolean);
-dns.setServers(dnsServers);
+if (dnsServers.length > 0) {
+    dns.setServers(dnsServers);
+}
 
 const app = express();
 let connectionPromise;
