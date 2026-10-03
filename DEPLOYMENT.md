@@ -1,26 +1,25 @@
-# Development and Vercel Deployment
+# Development and Backend Deployment
 
 ## Local development
 
 From the repository root, run `npm install` once, then `npm run dev` to start the Vite client and Express server together. The client is available at `http://localhost:5173` and `/api` requests are proxied to `http://localhost:5000`.
 
-## Vercel
+## Deploy the backend to Vercel
 
-Deploy this as one Vercel project, not as separate frontend and backend projects. The repository root contains the workspace lockfile, Vercel config, and `api/` function; `api/[...path].js` exports the Express app, while the client calls the same deployment at `/api`.
+The Express app is exposed as a Vercel serverless function by `server/api/[...path].js`. Deploy it as its own Vercel project:
 
-1. Import the repository and set **Root Directory** to the repository root (the directory containing this file).
-2. Use the **Other** framework preset. Keep the root config's install command (`npm install`), build command (`npm run build`), and output directory (`client/dist`). Do not set the Vercel root to `client/` or `server/`.
-3. In **Settings > Environment Variables**, add these server-only values for every environment you deploy (Production, Preview, and Development as needed):
+1. In Vercel, choose **Add New > Project** and import this repository.
+2. In the project's configuration, set **Root Directory** to `server`. Leave **Include files outside the root directory** disabled; the backend is self-contained.
+3. Select the **Other** framework preset. Leave the Build Command and Output Directory empty. Vercel should use the `server/package.json` and `server/package-lock.json` to install dependencies. Do not override the install command to run from the repository root.
+4. Under **Settings > Environment Variables**, add these values for Production (and Preview too if you will test preview deployments):
 
 	- `MONGODB_URI`: MongoDB Atlas connection string, including the database name.
 	- `JWT_SECRET`: a long, random signing secret.
-	- `EMAIL_USER`: the Gmail account used to send verification and booking emails.
-	- `EMAIL_PASS`: that account's Google app password, not its normal password.
+	- `EMAIL_USER`: the email account used for verification and booking emails.
+	- `EMAIL_PASS`: the account's app password, not its normal password.
 
-	Leave `DNS_SERVERS` unset unless you have a specific DNS issue to work around. The server uses the platform's default resolver unless this optional override is set. In Atlas, make sure the database user has the needed permissions and the cluster's network access rules allow connections from your hosting setup.
-4. Leave `VITE_API_URL` unset for this single-project deployment; the client defaults to the same-origin `/api` URL. It is a client build-time setting, not a place for secrets.
-5. Deploy, then open `/api/events`. A successful response is JSON (possibly an empty array); a `503` means the API function ran but could not connect to MongoDB. Check **Vercel > Project > Logs** for the matching function invocation. Also open a client route such as `/login` directly and refresh it to verify the SPA fallback.
+	`DNS_SERVERS` is optional; the server uses platform DNS normally, and falls back to `8.8.8.8,1.1.1.1` only when Node is configured with loopback-only DNS. Set `DNS_SERVERS` to a comma-separated resolver list only if your host requires a specific override. In Atlas, make sure the database user has the required permissions and the cluster's network access rules allow connections from Vercel.
+5. Deploy the project. Your API routes will be available under the deployment URL, for example `https://your-project.vercel.app/api/events`, `/api/auth/login`, and `/api/bookings`.
+6. Open `https://your-project.vercel.app/api/events` to verify it. A successful response is JSON (possibly an empty array). A `503` means the function ran but could not connect to MongoDB; check the Vercel function logs and your Atlas URI, credentials, and network access rules.
 
-The root `package.json` currently allows Node.js 20, 22, or 24, and Vercel supports all three (24 is the current default). The local production build was verified on Node.js 24.14.0. The Vercel API runs as a serverless function; `server/index.js` is for local/standalone hosting and is not the Vercel entry point.
-
-Do not commit credentials in `.env` files. Run `npm run build` from the repository root before deploying to reproduce Vercel's configured frontend build locally.
+Do not commit credentials in `.env` files. The standalone `server/index.js` remains useful for local development; Vercel invokes the serverless function instead. When you deploy the frontend separately, its build-time `VITE_API_URL` should point to the backend origin plus `/api` (for example, `https://your-project.vercel.app/api`); do not put backend secrets in frontend environment variables.

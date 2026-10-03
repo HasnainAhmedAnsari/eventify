@@ -16,6 +16,8 @@ const dnsServers = (process.env.DNS_SERVERS || '')
     .filter(Boolean);
 if (dnsServers.length > 0) {
     dns.setServers(dnsServers);
+} else if (dns.getServers().every(server => server === '127.0.0.1' || server === '::1')) {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
 }
 
 const app = express();
